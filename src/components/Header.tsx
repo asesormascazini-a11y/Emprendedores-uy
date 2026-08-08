@@ -11,6 +11,9 @@ export function Header() {
           <Link href="/emprendedores" className="hover:text-brand-600">
             Directorio
           </Link>
+          <Link href="/ferias" className="hover:text-brand-600">
+            Ferias
+          </Link>
           <Link
             href="/sumar"
             className="rounded-md bg-brand-600 px-3 py-1.5 text-white hover:bg-brand-700"

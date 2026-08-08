@@ -26,6 +26,20 @@ export async function GET(request: Request) {
   const emprendedores = await prisma.emprendedor.findMany({
     where,
     orderBy: { createdAt: "desc" },
+    select: {
+      id: true,
+      nombre: true,
+      descripcion: true,
+      rubro: true,
+      departamento: true,
+      ciudad: true,
+      email: true,
+      telefono: true,
+      sitioWeb: true,
+      instagram: true,
+      logoUrl: true,
+      createdAt: true,
+    },
   });
   return NextResponse.json(emprendedores);
 }

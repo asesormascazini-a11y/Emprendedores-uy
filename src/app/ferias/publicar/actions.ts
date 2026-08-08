@@ -2,49 +2,50 @@
 
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
-import { RUBROS, DEPARTAMENTOS } from "@/lib/constants";
+import { DEPARTAMENTOS } from "@/lib/constants";
 
 function str(formData: FormData, key: string) {
   const value = formData.get(key);
   return typeof value === "string" ? value.trim() : "";
 }
 
-export async function crearEmprendedor(formData: FormData) {
+export async function crearFeria(formData: FormData) {
   const nombre = str(formData, "nombre");
   const descripcion = str(formData, "descripcion");
-  const rubro = str(formData, "rubro");
   const departamento = str(formData, "departamento");
   const ciudad = str(formData, "ciudad");
-  const email = str(formData, "email");
-  const telefono = str(formData, "telefono");
+  const lugar = str(formData, "lugar");
+  const fechaTexto = str(formData, "fecha");
   const sitioWeb = str(formData, "sitioWeb");
-  const instagram = str(formData, "instagram");
+  const contactoEmail = str(formData, "contactoEmail");
+
+  const fecha = fechaTexto ? new Date(fechaTexto) : null;
+  const fechaValida = fecha instanceof Date && !isNaN(fecha.getTime()) && fecha.getTime() > Date.now();
 
   const esValido =
     nombre.length > 0 &&
     descripcion.length > 0 &&
-    email.length > 0 &&
-    (RUBROS as readonly string[]).includes(rubro) &&
+    contactoEmail.length > 0 &&
+    fechaValida &&
     (DEPARTAMENTOS as readonly string[]).includes(departamento);
 
-  if (!esValido) {
-    redirect("/sumar?error=1");
+  if (!esValido || !fecha) {
+    redirect("/ferias/publicar?error=1");
   }
 
-  const emprendedor = await prisma.emprendedor.create({
+  await prisma.feria.create({
     data: {
       nombre,
       descripcion,
-      rubro,
       departamento,
       ciudad: ciudad || null,
-      email,
-      telefono: telefono || null,
+      lugar: lugar || null,
+      fecha,
       sitioWeb: sitioWeb || null,
-      instagram: instagram || null,
+      contactoEmail,
       publicado: false,
     },
   });
 
-  redirect(`/sumar?exito=1&token=${emprendedor.dashboardToken}`);
+  redirect("/ferias/publicar?exito=1");
 }

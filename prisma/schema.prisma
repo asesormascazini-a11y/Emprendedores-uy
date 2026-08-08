@@ -8,21 +8,50 @@ datasource db {
 }
 
 model Emprendedor {
-  id          String   @id @default(cuid())
-  nombre      String
-  descripcion String
-  rubro       String
-  departamento String
-  ciudad      String?
-  email       String?
-  telefono    String?
-  sitioWeb    String?
-  instagram   String?
-  logoUrl     String?
-  publicado   Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id             String   @id @default(cuid())
+  nombre         String
+  descripcion    String
+  rubro          String
+  departamento   String
+  ciudad         String?
+  email          String?
+  telefono       String?
+  sitioWeb       String?
+  instagram      String?
+  logoUrl        String?
+  publicado      Boolean  @default(false)
+  dashboardToken String   @unique @default(cuid())
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  visitas Visita[]
 
   @@index([rubro])
+  @@index([departamento])
+}
+
+model Visita {
+  id            String      @id @default(cuid())
+  emprendedorId String
+  emprendedor   Emprendedor @relation(fields: [emprendedorId], references: [id], onDelete: Cascade)
+  createdAt     DateTime    @default(now())
+
+  @@index([emprendedorId, createdAt])
+}
+
+model Feria {
+  id            String   @id @default(cuid())
+  nombre        String
+  descripcion   String
+  departamento  String
+  ciudad        String?
+  lugar         String?
+  fecha         DateTime
+  sitioWeb      String?
+  contactoEmail String
+  publicado     Boolean  @default(false)
+  createdAt     DateTime @default(now())
+
+  @@index([fecha])
   @@index([departamento])
 }

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
+import { linkWhatsApp } from "@/lib/whatsapp";
 
 export const dynamic = "force-dynamic";
 
@@ -17,9 +18,10 @@ export default async function EmprendedorDetailPage({
     notFound();
   }
 
-  const contactos = [
+  await prisma.visita.create({ data: { emprendedorId: emprendedor.id } });
+
+  const otrosContactos = [
     emprendedor.email && { label: "Email", href: `mailto:${emprendedor.email}`, text: emprendedor.email },
-    emprendedor.telefono && { label: "Teléfono", href: `tel:${emprendedor.telefono}`, text: emprendedor.telefono },
     emprendedor.sitioWeb && { label: "Sitio web", href: emprendedor.sitioWeb, text: emprendedor.sitioWeb },
     emprendedor.instagram && {
       label: "Instagram",
@@ -42,11 +44,25 @@ export default async function EmprendedorDetailPage({
 
       <p className="mt-4 whitespace-pre-line text-gray-700">{emprendedor.descripcion}</p>
 
-      {contactos.length > 0 && (
-        <div className="mt-6 rounded-lg border border-gray-200 bg-white p-4">
-          <h2 className="mb-2 text-sm font-semibold text-gray-800">Contacto</h2>
+      {emprendedor.telefono && (
+        <a
+          href={linkWhatsApp(
+            emprendedor.telefono,
+            `Hola ${emprendedor.nombre}, te encontré en Emprendedores UY y quería consultarte.`
+          )}
+          target="_blank"
+          rel="noreferrer"
+          className="mt-6 flex w-full items-center justify-center gap-2 rounded-md bg-[#25D366] px-5 py-3 text-sm font-semibold text-white hover:bg-[#1ebe5a]"
+        >
+          Escribir por WhatsApp
+        </a>
+      )}
+
+      {otrosContactos.length > 0 && (
+        <div className="mt-4 rounded-lg border border-gray-200 bg-white p-4">
+          <h2 className="mb-2 text-sm font-semibold text-gray-800">Más contacto</h2>
           <ul className="space-y-1 text-sm">
-            {contactos.map((c) => (
+            {otrosContactos.map((c) => (
               <li key={c.label}>
                 <span className="text-gray-500">{c.label}: </span>
                 <a

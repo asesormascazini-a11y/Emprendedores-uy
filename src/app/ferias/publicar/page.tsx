@@ -1,53 +1,38 @@
-import { crearEmprendedor } from "./actions";
-import { RUBROS, DEPARTAMENTOS } from "@/lib/constants";
+import { crearFeria } from "./actions";
+import { DEPARTAMENTOS } from "@/lib/constants";
 
-export default async function SumarPage({
+export default async function PublicarFeriaPage({
   searchParams,
 }: {
-  searchParams: Promise<{ exito?: string; error?: string; token?: string }>;
+  searchParams: Promise<{ exito?: string; error?: string }>;
 }) {
-  const { exito, error, token } = await searchParams;
+  const { exito, error } = await searchParams;
 
   return (
     <div className="mx-auto max-w-xl">
-      <h1 className="text-2xl font-bold text-brand-700">Sumá tu emprendimiento</h1>
+      <h1 className="text-2xl font-bold text-brand-700">Publicá una feria o mercado</h1>
       <p className="mt-2 text-gray-600">
-        Completá el formulario y tu emprendimiento se revisa antes de
-        publicarse en el directorio. Es gratis.
+        Sumá una feria, mercado o evento donde encontrarte con emprendedores.
+        Se revisa antes de publicarse en el calendario.
       </p>
 
       {exito && (
-        <div className="mt-4 rounded-md bg-brand-50 px-4 py-3 text-sm text-brand-700">
-          <p>
-            ¡Gracias! Recibimos tu emprendimiento y lo vamos a revisar antes de
-            publicarlo.
-          </p>
-          {token && (
-            <p className="mt-2">
-              Guardá este link: es tu panel privado para ver cuánta gente
-              visita tu perfil una vez publicado.
-              <br />
-              <a
-                href={`/mi-perfil/${token}`}
-                className="font-mono font-semibold underline"
-              >
-                {`/mi-perfil/${token}`}
-              </a>
-            </p>
-          )}
-        </div>
+        <p className="mt-4 rounded-md bg-brand-50 px-4 py-3 text-sm text-brand-700">
+          ¡Gracias! Vamos a revisar el evento antes de publicarlo en el
+          calendario.
+        </p>
       )}
       {error && (
         <p className="mt-4 rounded-md bg-red-50 px-4 py-3 text-sm text-red-700">
-          Faltan datos obligatorios (nombre, descripción, email, rubro y
-          departamento). Revisá el formulario e intentá de nuevo.
+          Revisá los datos: nombre, descripción, departamento, fecha (futura) y
+          email de contacto son obligatorios.
         </p>
       )}
 
-      <form action={crearEmprendedor} className="mt-6 flex flex-col gap-4">
+      <form action={crearFeria} className="mt-6 flex flex-col gap-4">
         <div>
           <label className="mb-1 block text-sm font-medium text-gray-700">
-            Nombre del emprendimiento *
+            Nombre del evento *
           </label>
           <input
             type="text"
@@ -64,7 +49,7 @@ export default async function SumarPage({
           <textarea
             name="descripcion"
             required
-            rows={4}
+            rows={3}
             className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
           />
         </div>
@@ -72,23 +57,14 @@ export default async function SumarPage({
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label className="mb-1 block text-sm font-medium text-gray-700">
-              Rubro *
+              Fecha *
             </label>
-            <select
-              name="rubro"
+            <input
+              type="date"
+              name="fecha"
               required
-              defaultValue=""
               className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
-            >
-              <option value="" disabled>
-                Elegí un rubro
-              </option>
-              {RUBROS.map((r) => (
-                <option key={r} value={r}>
-                  {r}
-                </option>
-              ))}
-            </select>
+            />
           </div>
           <div>
             <label className="mb-1 block text-sm font-medium text-gray-700">
@@ -112,15 +88,27 @@ export default async function SumarPage({
           </div>
         </div>
 
-        <div>
-          <label className="mb-1 block text-sm font-medium text-gray-700">
-            Ciudad / localidad
-          </label>
-          <input
-            type="text"
-            name="ciudad"
-            className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
-          />
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div>
+            <label className="mb-1 block text-sm font-medium text-gray-700">
+              Ciudad / localidad
+            </label>
+            <input
+              type="text"
+              name="ciudad"
+              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
+            />
+          </div>
+          <div>
+            <label className="mb-1 block text-sm font-medium text-gray-700">
+              Lugar (dirección o predio)
+            </label>
+            <input
+              type="text"
+              name="lugar"
+              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
+            />
+          </div>
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2">
@@ -130,47 +118,19 @@ export default async function SumarPage({
             </label>
             <input
               type="email"
-              name="email"
+              name="contactoEmail"
               required
               className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
             />
           </div>
           <div>
             <label className="mb-1 block text-sm font-medium text-gray-700">
-              WhatsApp
-            </label>
-            <input
-              type="tel"
-              name="telefono"
-              placeholder="099 123 456"
-              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
-            />
-            <p className="mt-1 text-xs text-gray-500">
-              Va a ser el botón principal de contacto en tu perfil.
-            </p>
-          </div>
-        </div>
-
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div>
-            <label className="mb-1 block text-sm font-medium text-gray-700">
-              Sitio web
+              Sitio web / redes
             </label>
             <input
               type="url"
               name="sitioWeb"
               placeholder="https://"
-              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
-            />
-          </div>
-          <div>
-            <label className="mb-1 block text-sm font-medium text-gray-700">
-              Instagram
-            </label>
-            <input
-              type="text"
-              name="instagram"
-              placeholder="@tu_emprendimiento"
               className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
             />
           </div>

@@ -7,9 +7,15 @@ export function Header() {
         <Link href="/" className="text-lg font-bold text-brand-700">
           Emprendedores UY
         </Link>
-        <nav className="flex gap-6 text-sm font-medium text-gray-600">
+        <nav className="flex items-center gap-6 text-sm font-medium text-gray-600">
           <Link href="/emprendedores" className="hover:text-brand-600">
             Directorio
+          </Link>
+          <Link
+            href="/sumar"
+            className="rounded-md bg-brand-600 px-3 py-1.5 text-white hover:bg-brand-700"
+          >
+            Sumar mi emprendimiento
           </Link>
         </nav>
       </div>

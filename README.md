@@ -49,6 +49,12 @@ src/
     api/
       emprendedores/
         route.ts                 API REST: GET (listar, con filtros) / POST (crear)
+    admin/
+      page.tsx                    Panel de moderación: pendientes + publicar/rechazar
+      actions.ts                   Server Actions de moderación + logout
+      login/
+        page.tsx                    Login con contraseña
+        actions.ts                   Server Action de login
   components/
     Header.tsx
     Footer.tsx
@@ -57,14 +63,18 @@ src/
     prisma.ts                Cliente Prisma singleton
     constants.ts              Rubros y departamentos de Uruguay
     whatsapp.ts                Normaliza números UY y arma links wa.me
+    auth.ts                     Sesión de admin (cookie firmada por hash)
+  proxy.ts                   Protege /admin/* redirigiendo a /admin/login sin sesión
 ```
 
 ## Cómo funciona la moderación
 
 Los emprendimientos (`/sumar`) y las ferias (`/ferias/publicar`) se guardan
 con `publicado: false` y no aparecen en las páginas públicas ni en la API
-hasta que alguien los marque como `publicado: true` (por ahora,
-manualmente vía `npm run db:studio`).
+hasta ser aprobados desde el panel `/admin` (protegido por la contraseña
+`ADMIN_PASSWORD`). El acceso es una cookie de sesión sin librerías externas:
+no hay usuarios ni roles, solo una contraseña compartida — pensado para un
+solo moderador. `/admin` no está enlazado desde la navegación pública.
 
 ## Dashboard privado del emprendedor
 
@@ -76,8 +86,8 @@ expone en la API pública ni en el directorio.
 
 ## Desarrollo
 
-1. Copiar `.env.example` a `.env` y completar `DATABASE_URL` con una base
-   PostgreSQL.
+1. Copiar `.env.example` a `.env`, completar `DATABASE_URL` con una base
+   PostgreSQL y elegir un `ADMIN_PASSWORD`.
 2. Instalar dependencias:
 
    ```bash

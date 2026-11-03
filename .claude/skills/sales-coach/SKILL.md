@@ -60,6 +60,13 @@ user runs `coach.py listen --follow` in a terminal while the lines are appended.
 ## The objections it knows
 
 price, timing, needs to think, someone else decides, already has someone, does it work, send me info.
+
+Also, in Uruguayan Spanish, for life insurance (Red Específica de Vida), checked first: `ya_tengo_seguro`
+(work, bank or loan cover), `otro_asesor`, `confianza` ("no pagan", letra chica), `no_pensar_muerte`,
+`soy_joven`, `prefiero_ahorrar`, `decide_otro`, `precio`, `momento`, `pensar`, `mandame_info`. Spanish
+buying signals ("me cierra", "¿cuándo empieza a cubrir?") get a Spanish card. Set `me.value_line`,
+`me.plan_b`, `me.proof` and `me.next_step` in Spanish in `closer/pipeline.json` so the cards read right.
+Try it: `coach.py listen --captions call.ejemplo.txt --me Vos`.
 Each has the words it listens for, the answer, and why that answer works. Add the user's own: edit
 `objections.json` with what their customers really say and what really works for them.
 

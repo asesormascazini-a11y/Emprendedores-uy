@@ -41,7 +41,12 @@ LINE_RE = re.compile(r"^\s*(?:\[?\d{1,2}:\d{2}(?::\d{2})?\]?\s*)?([^:]{1,40}):\s
 BUYING = re.compile(r"how soon|when (can|could) (we|you) start|what('s| is) (the )?next step|send (me )?(the|a) "
                     r"(contract|agreement|invoice)|how do (we|i) (get started|sign up|start)|sounds good|let'?s do it"
                     r"|i'?m in\b|where do i sign|can we start", re.I)
-QUESTION = re.compile(r"\?\s*$|^(how|what|when|where|why|who|can|could|do|does|is|are|will|would)\b", re.I)
+BUYING_ES = re.compile(r"cu[aá]ndo (empezamos|arrancamos|empieza|arranca)|c[oó]mo (sigo|seguimos|hacemos|arranco|lo hago)"
+                       r"|qu[eé] (necesit[aá]s|precis[aá]s|papeles|documentos)|cu[aá]l es el (pr[oó]ximo|siguiente) paso"
+                       r"|dale,? (hag[aá]moslo|vamos|arranquemos)|me (sirve|cierra|convence)|d[oó]nde firmo"
+                       r"|mand[aá]me (la propuesta|el formulario|la solicitud|el contrato)|me (anoto|prendo)", re.I)
+QUESTION = re.compile(r"\?\s*$|^\s*¿|^(how|what|when|where|why|who|can|could|do|does|is|are|will|would"
+                      r"|c[oó]mo|qu[eé]|cu[aá]ndo|cu[aá]nto|d[oó]nde|por qu[eé]|qui[eé]n|puedo|se puede)\b", re.I)
 
 
 def _pipeline():
@@ -107,6 +112,11 @@ def coach_line(who, text, me, lib, offer):
                 "say": "Great. The next step is %s. Want me to send that over today?" % (
                     offer.get("next_step") or "a short agreement"),
                 "why": "They are asking how to buy. Stop selling and agree the next step."}
+    if BUYING_ES.search(text):
+        return {"kind": "buying", "who": who, "heard": text, "label": "Señal de compra",
+                "say": "Bárbaro. El próximo paso es %s. ¿Lo hacemos ahora o te lo mando hoy?" % (
+                    offer.get("next_step") or "completar la solicitud"),
+                "why": "Está preguntando cómo comprar. Dejá de vender y acordá el próximo paso."}
     if QUESTION.search(text):
         return {"kind": "question", "who": who, "heard": text, "label": "They asked a question",
                 "say": "Answer it directly before you move on.", "why": text}
@@ -163,12 +173,15 @@ def review(lines, me, lib):
             k = detect(text, lib)
             if k:
                 objections.append((k, text))
-            elif BUYING.search(text):
+            elif BUYING.search(text) or BUYING_ES.search(text):
                 signals.append(text)
     total = mine + theirs or 1
     last_mine = [parse_line(l)[1] for l in lines if (parse_line(l)[0] or "").lower() in (me.lower(), "you")]
     next_step = bool(last_mine) and bool(re.search(r"\b(monday|tuesday|wednesday|thursday|friday|tomorrow|next week"
-                                                     r"|send|invite|calendar|agreement|contract|proposal)\b",
+                                                     r"|send|invite|calendar|agreement|contract|proposal"
+                                                     r"|lunes|martes|mi[eé]rcoles|jueves|viernes|s[aá]bado|ma[nñ]ana"
+                                                     r"|semana que viene|te mando|agendamos|agendo|caf[eé]|propuesta"
+                                                     r"|solicitud|formulario|p[oó]liza|whatsapp)\b",
                                                      " ".join(last_mine[-3:]), re.I))
     return {"talk_share": round(100.0 * mine / total), "questions_asked": len(my_questions),
             "objections": objections, "buying_signals": signals, "next_step_agreed": next_step}

@@ -1,43 +1,251 @@
 {
+  "ya_tengo_seguro": {
+    "label": "Objeción: ya tengo seguro (trabajo, banco, préstamo)",
+    "hear": [
+      "ya tengo (un |el )?(seguro|cobertura)",
+      "tengo (un )?(seguro|cobertura) (por|en|con|del|de la) ?(el |la )?(trabajo|empresa|banco|caja|pr[eé]stamo|hipoteca|mutualista)",
+      "el (seguro|de vida) del (banco|trabajo|pr[eé]stamo)",
+      "ya estoy (cubierto|asegurado|asegurada|cubierta)",
+      "con el bps (alcanza|ya est[aá])"
+    ],
+    "say": "Bárbaro, eso habla bien de vos. ¿Sabés cuánto cubre y qué pasa con esa cobertura si cambiás de trabajo o terminás de pagar el préstamo? Lo miramos juntos y vemos si alcanza.",
+    "why": "Los seguros colectivos o del préstamo suelen cubrir la deuda o unos meses de sueldo, y terminan con el empleo o el crédito. No lo critiques: medí la brecha con él."
+  },
+  "otro_asesor": {
+    "label": "Objeción: ya tengo asesor",
+    "hear": [
+      "ya tengo (un |una |mi )?(asesor|asesora|corredor|corredora|agente|productor)",
+      "mi (primo|prima|cu[nñ]ado|cu[nñ]ada|amigo|amiga|t[ií]o|t[ií]a|hermano|hermana) (vende|es|trabaja en) (seguros|corredor|asesor)",
+      "ya lo veo con (alguien|otro)"
+    ],
+    "say": "Buenísimo que ya lo tengas en cuenta. ¿Cuándo fue la última vez que revisaron si la cobertura sigue acompañando tu vida de hoy?",
+    "why": "Nunca hables mal del otro asesor. Buscá el cambio de vida (hijos, casa, sueldo) que la póliza vieja no contempla."
+  },
+  "confianza": {
+    "label": "Objeción: no confío / no pagan",
+    "hear": [
+      "no (te )?pagan",
+      "nunca pagan",
+      "despu[eé]s no (te )?pagan",
+      "letra chica",
+      "no conf[ií]o",
+      "es (un )?verso",
+      "estafa",
+      "c[oó]mo s[eé] que",
+      "qu[eé] garant[ií]a",
+      "ya me (estafaron|cagaron|pas[oó])"
+    ],
+    "say": "Es una duda muy válida. Antes de firmar nada te muestro en la póliza qué cubre, qué excluye y quién cobra. Y las aseguradoras están supervisadas por el Banco Central. {proof}",
+    "why": "La desconfianza se responde con transparencia, no con entusiasmo: exclusiones claras y un caso real. Si no tenés caso propio, no lo inventes."
+  },
+  "no_pensar_muerte": {
+    "label": "Objeción: no quiero pensar en eso",
+    "hear": [
+      "no quiero (ni )?pensar en (eso|la muerte|morirme)",
+      "yeta",
+      "mala suerte",
+      "me da cosa",
+      "no me gusta (hablar|pensar) (de|en) (eso|la muerte)",
+      "no hablemos de (eso|la muerte)"
+    ],
+    "say": "Te entiendo, a nadie le gusta. Por eso lo hablamos una sola vez y queda resuelto: no es sobre vos, es sobre que tu familia no tenga que pensar en plata el peor día.",
+    "why": "Validá la emoción y llevá la conversación de la muerte a la tranquilidad de la familia. No insistas con detalles en ese momento."
+  },
+  "soy_joven": {
+    "label": "Objeción: soy joven / nadie depende de mí",
+    "hear": [
+      "soy (muy |re )?joven",
+      "no tengo hijos",
+      "nadie depende de m[ií]",
+      "estoy (muy |re )?sano",
+      "estoy (muy |re )?sana",
+      "no me va a pasar nada",
+      "todav[ií]a (no|es temprano)",
+      "no lo necesito"
+    ],
+    "say": "Justamente: hoy, con tu edad y tu salud, es cuando entrás en mejores condiciones. Y si mañana no estás, ¿quién se queda con tus deudas o ayuda a tus viejos?",
+    "why": "La edad y la salud de hoy definen el costo y la aceptación. Buscá a quién afectaría: deudas, padres, pareja, socios."
+  },
+  "prefiero_ahorrar": {
+    "label": "Objeción: prefiero ahorrar o invertir",
+    "hear": [
+      "prefiero (ahorrar|invertir|poner(lo)? en)",
+      "plazo fijo",
+      "lo pongo en (d[oó]lares|el banco)",
+      "compro d[oó]lares",
+      "invertir en (ladrillos|un apartamento|una casa)",
+      "ya ahorro"
+    ],
+    "say": "Ahorrar está perfecto, seguí haciéndolo. La diferencia es que el ahorro crece de a poco y el seguro protege desde el primer día. {value_line}",
+    "why": "No compitas contra el ahorro: son complementarios. El seguro cubre el tiempo que el ahorro todavía no llegó a juntar."
+  },
+  "decide_otro": {
+    "label": "Objeción: lo tengo que hablar con alguien",
+    "hear": [
+      "con mi (se[nñ]ora|esposa|esposo|marido|mujer|pareja|novia|novio|familia|contador|contadora|vieja|viejo|socio|socia)",
+      "lo consulto",
+      "lo tengo que consultar",
+      "no decido yo",
+      "lo decidimos (juntos|en familia)"
+    ],
+    "say": "Perfecto, es una decisión de familia. ¿Qué te parece si la próxima vez estamos los tres, 20 minutos, así respondo yo las dudas directamente?",
+    "why": "La pareja suele ser la beneficiaria: incluila en vez de mandar un resumen. Agendá fecha y hora antes de cortar."
+  },
+  "precio": {
+    "label": "Objeción: es caro",
+    "hear": [
+      "es (muy |re |demasiado )?caro",
+      "(est[aá]|sale) (muy |re )?(caro|salado|pesado)",
+      "sale (mucho|un ojo)",
+      "no me da (la plata|el bolsillo)",
+      "no me alcanza",
+      "no tengo plata",
+      "no puedo pagar(lo)?",
+      "m[aá]s barato",
+      "descuento",
+      "fuera de (mi |nuestro )?presupuesto",
+      "muy (caro|salado)"
+    ],
+    "say": "Es lógico mirarlo. {value_line} ¿Te sirve arrancar con {plan_b}?",
+    "why": "Primero acordá, después poné el costo al lado de lo que protege, y ofrecé un primer paso más chico. Nunca bajes el precio sin cambiar la cobertura."
+  },
+  "momento": {
+    "label": "Objeción: no es el momento",
+    "hear": [
+      "ahora no",
+      "no es (el )?momento",
+      "m[aá]s adelante",
+      "el (a[nñ]o|mes) que viene",
+      "despu[eé]s de (las fiestas|fin de a[nñ]o|enero|las vacaciones|carnaval|turismo)",
+      "cuando cobre (el aguinaldo|el sueldo)",
+      "estoy a mil",
+      "en otro momento"
+    ],
+    "say": "Dale. ¿Qué tendría que pasar para que sea el momento? Lo único: la cobertura se calcula con tu edad y tu salud de hoy.",
+    "why": "Averiguá si el momento es la razón real. Si lo es, acordá una fecha concreta y que /win-back vuelva ese día."
+  },
+  "pensar": {
+    "label": "Objeción: lo voy a pensar",
+    "hear": [
+      "lo (voy a |tengo que |quiero )?pensar",
+      "pensarlo",
+      "dejame pensar",
+      "lo pienso",
+      "con la almohada",
+      "te aviso",
+      "lo vemos"
+    ],
+    "say": "Obvio. Para ayudarte a pensarlo: ¿es por el costo, por el momento o por si realmente te sirve?",
+    "why": "'Lo voy a pensar' casi siempre esconde una sola duda. Preguntá cuál, con calidez, una sola vez."
+  },
+  "mandame_info": {
+    "label": "Evasiva: mandame info",
+    "hear": [
+      "mand[aá]me (la |alguna |m[aá]s )?(info|informaci[oó]n|algo|los datos|por whatsapp|por mail)",
+      "p[aá]same (la )?(info|informaci[oó]n)",
+      "mandalo por (whatsapp|mail|correo)"
+    ],
+    "say": "Te lo mando por WhatsApp. Para mandarte lo justo: ¿qué te preocupa más cubrir, tu familia, tus deudas o tu retiro? Y ya dejamos agendado un café de 15 minutos para verlo.",
+    "why": "Mandalo, pero con una pregunta antes para que el mensaje responda lo que le importa. Agendá el siguiente paso antes de cortar."
+  },
   "price": {
     "label": "Objection: price",
-    "hear": ["too expensive", "too much", "can't afford", "cannot afford", "out of (our|my) budget", "over (our|my) budget", "no budget", "cheaper", "pricey", "costs? (a lot|too much)", "that's a lot", "steep", "(lower|better) price", "discount"],
+    "hear": [
+      "too expensive",
+      "too much",
+      "can't afford",
+      "cannot afford",
+      "out of (our|my) budget",
+      "over (our|my) budget",
+      "no budget",
+      "cheaper",
+      "pricey",
+      "costs? (a lot|too much)",
+      "that's a lot",
+      "steep",
+      "(lower|better) price",
+      "discount"
+    ],
     "say": "Totally fair. {value_line} Want to start on the {plan_b}?",
     "why": "Agree first, then make the price small next to what it brings back, then give a smaller first step. Never drop the price without changing what they get."
   },
   "timing": {
     "label": "Objection: timing",
-    "hear": ["not (the )?right (time|now)", "bad time", "busy season", "next (year|quarter|month)", "after the holidays", "come back (to me )?(later|in)", "maybe later", "not yet", "too busy"],
+    "hear": [
+      "not (the )?right (time|now)",
+      "bad time",
+      "busy season",
+      "next (year|quarter|month)",
+      "after the holidays",
+      "come back (to me )?(later|in)",
+      "maybe later",
+      "not yet",
+      "too busy"
+    ],
     "say": "Makes sense. What would need to be true for this to be the right time? If it helps, we can do the work now and go live when you're ready.",
     "why": "Find out if timing is the real reason. If it is, agree a date and let /win-back come back then."
   },
   "think": {
     "label": "Objection: needs to think",
-    "hear": ["think about it", "think it over", "sleep on it", "mull it over", "let me think", "get back to you"],
+    "hear": [
+      "think about it",
+      "think it over",
+      "sleep on it",
+      "mull it over",
+      "let me think",
+      "get back to you"
+    ],
     "say": "Of course. So I can help you think it through: is it the price, the timing, or whether it will actually work for you?",
     "why": "'Let me think' usually hides one real question. Ask which one, kindly, once."
   },
   "authority": {
     "label": "Objection: someone else decides",
-    "hear": ["talk to my (partner|wife|husband|boss|team|business partner|accountant)", "run it by", "check with", "not my (call|decision)", "need approval", "the board"],
+    "hear": [
+      "talk to my (partner|wife|husband|boss|team|business partner|accountant)",
+      "run it by",
+      "check with",
+      "not my (call|decision)",
+      "need approval",
+      "the board"
+    ],
     "say": "Makes sense. What will they want to know? I can send you a one-page summary to share, or we can grab 15 minutes with them this week.",
     "why": "Help them sell it inside. Offer the summary (/proposal-writer) or a second call with the decider."
   },
   "incumbent": {
     "label": "Objection: already has someone",
-    "hear": ["already have (a|an|someone|somebody)", "we use", "my (nephew|cousin|friend) (does|built|made)", "happy with (our|my)", "already working with", "in-house"],
+    "hear": [
+      "already have (a|an|someone|somebody)",
+      "we use",
+      "my (nephew|cousin|friend) (does|built|made)",
+      "happy with (our|my)",
+      "already working with",
+      "in-house"
+    ],
     "say": "Good, that means you already know it matters. What's one thing you wish they did better?",
     "why": "Do not knock the other option. Find the gap they already feel."
   },
   "proof": {
     "label": "Objection: does it work?",
-    "hear": ["does (it|this) (actually )?work", "how do i know", "guarantee", "results", "proof", "tried (this|that) before", "burned before", "didn't work"],
+    "hear": [
+      "does (it|this) (actually )?work",
+      "how do i know",
+      "guarantee",
+      "results",
+      "proof",
+      "tried (this|that) before",
+      "burned before",
+      "didn't work"
+    ],
     "say": "Fair question. Here's what happened for a business like yours: {proof}. Want me to send it over?",
     "why": "Answer with a real result you can show. If you have none yet, say so and offer a short first step instead."
   },
   "send_info": {
     "label": "Brush-off: send me info",
-    "hear": ["send (me )?(some )?(info|information|details|something)", "email me (the )?(details|info)", "put it in an email"],
+    "hear": [
+      "send (me )?(some )?(info|information|details|something)",
+      "email me (the )?(details|info)",
+      "put it in an email"
+    ],
     "say": "Happy to. So I send the right thing: what matters most to you, getting more customers or saving time?",
     "why": "Send it, but ask one question first so the email answers what they care about. Book the next step before you hang up."
   }

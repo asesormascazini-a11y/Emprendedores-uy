@@ -73,5 +73,44 @@ class Call(unittest.TestCase):
         self.assertGreater(r["talk_share"], 50)
 
 
+class Vida(unittest.TestCase):
+    """Objeciones de seguros de Vida en Uruguay (español rioplatense)."""
+
+    def setUp(self):
+        self.lib = coach.load_objections()
+
+    def test_cada_objecion(self):
+        cases = {"Mirá, la verdad es muy caro para mí ahora": "precio",
+                 "Ahora no tengo plata": "precio",
+                 "Lo tengo que hablar con mi señora": "decide_otro",
+                 "Lo voy a pensar": "pensar",
+                 "Ya tengo seguro por el trabajo": "ya_tengo_seguro",
+                 "Mi cuñado vende seguros": "otro_asesor",
+                 "Las aseguradoras después no te pagan": "confianza",
+                 "No quiero ni pensar en eso": "no_pensar_muerte",
+                 "Soy re joven, no tengo hijos": "soy_joven",
+                 "Prefiero ahorrar en dólares": "prefiero_ahorrar",
+                 "Después de las fiestas lo vemos": "momento",
+                 "Mandame la info por WhatsApp": "mandame_info"}
+        for text, key in cases.items():
+            self.assertEqual(coach.detect(text, self.lib), key, text)
+        for text in ("Trabajo en Montevideo hace 5 años.", "Me parece bien."):
+            self.assertIsNone(coach.detect(text, self.lib), text)
+
+    def test_precio_usa_la_oferta_real(self):
+        card = coach.coach_line("Martín", "Es muy caro", "Vos", self.lib, {})
+        self.assertIn("[your value line]", card["say"])
+        self.assertIn("[your plan b]", card["say"])
+
+    def test_llamada_de_ejemplo(self):
+        with open(os.path.join(HERE, "call.ejemplo.txt"), encoding="utf-8") as fh:
+            lines = fh.read().splitlines()
+        cards = coach.listen(lines, "Vos", self.lib, {})
+        self.assertEqual([c["kind"] for c in cards], ["objection", "objection", "buying"])
+        r = coach.review(lines, "Vos", self.lib)
+        self.assertEqual([k for k, _ in r["objections"]], ["ya_tengo_seguro", "decide_otro"])
+        self.assertTrue(r["next_step_agreed"])
+
+
 if __name__ == "__main__":
     unittest.main()

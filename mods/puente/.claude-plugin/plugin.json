@@ -1,0 +1,6 @@
+{
+  "name": "puente",
+  "version": "0.1.0",
+  "description": "Panel lateral que conecta sesiones y artefactos: los lista y manda mensajes de una sesión a otra.",
+  "types": "./types/index.d.ts"
+}

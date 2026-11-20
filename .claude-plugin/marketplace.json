@@ -1,0 +1,11 @@
+{
+  "name": "emprendedores-uy",
+  "owner": { "name": "asesormascazini-a11y" },
+  "plugins": [
+    {
+      "name": "puente",
+      "source": "./mods/puente",
+      "description": "Panel lateral que conecta sesiones y artefactos: los lista y manda mensajes de una sesión a otra."
+    }
+  ]
+}
